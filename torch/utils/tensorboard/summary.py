@@ -656,7 +656,7 @@ def make_video(tensor, fps):
         print("add_video needs package moviepy")
         return
     try:
-        from moviepy import editor as mpy
+        import moviepy as mpy
     except ImportError:
         print(
             "moviepy is installed, but can't import moviepy.editor.",
