@@ -398,7 +398,7 @@ def tensor_proto(tag, tensor):
     """Outputs a `Summary` protocol buffer containing the full tensor.
     The generated Summary has a Tensor.proto containing the input Tensor.
     Args:
-      tag: A name for the generated node. Will also serve as the series name in
+      name: A name for the generated node. Will also serve as the series name in
         TensorBoard.
       tensor: Tensor to be converted to protobuf
     Returns:
@@ -665,14 +665,14 @@ def make_video(tensor, fps):
         return
     import tempfile
 
-    _t, h, w, c = tensor.shape
+    t, h, w, c = tensor.shape
 
     # encode sequence of images into gif string
     clip = mpy.ImageSequenceClip(list(tensor), fps=fps)
 
     filename = tempfile.NamedTemporaryFile(suffix=".gif", delete=False).name
     try:  # newer version of moviepy use logger instead of progress_bar argument.
-        clip.write_gif(filename, verbose=False, logger=None)
+        clip.write_gif(filename, logger=None)
     except TypeError:
         try:  # older version of moviepy does not support progress_bar argument.
             clip.write_gif(filename, verbose=False, progress_bar=False)
